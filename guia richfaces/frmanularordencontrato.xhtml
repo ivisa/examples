@@ -1,0 +1,604 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+
+	<ui:composition template="/templates/template-form.xhtml">
+		<ui:define name="title">
+			LogisWeb V2.0 - Anular Orden de Compra/Servicio/Contrato
+		</ui:define>
+		
+		<ui:define name="content">
+			<h:form>
+				<rich:panel style="width: 800px;" id="richpanelprincipal">
+					<f:facet name="header">
+						<h:outputText value="Anular Orden de Compra/Servicio/Contrato" />
+					</f:facet>
+					<div align="center" style="width: 775px;">
+						<rich:simpleTogglePanel switchType="client" id="simpleTogglePanelDatosOrdenContrato">
+							<f:facet name="header">
+								<h:outputText value="Datos de la Orden/Contrato" />
+							</f:facet>
+							<div align="center">
+								<rich:toolBar itemSeparator="grid">
+									<h:panelGroup>
+										<a4j:commandLink id="commandLinkCargarOrdenContrato"
+							        		reRender="simpleTogglePanelDatosOrdenContrato" value="Cargar Orden/Contrato">
+							        		<f:setPropertyActionListener value="#{true}"
+												target="#{ordenContratoBean.seleccion}"/>					          		
+										</a4j:commandLink>
+							            <rich:toolTip for="commandLinkCargarOrdenContrato" value="Cargar Orden/Contrato"/>
+							    	</h:panelGroup>
+								</rich:toolBar>
+								<h:panelGrid columns="1">
+									<rich:simpleTogglePanel ajaxSingle="true" switchType="client" 
+										id="simpleTogglePanelCargarDatosOrdenContrato" 
+										rendered="#{ordenContratoBean.seleccion}" width="525">
+										<div align="center">
+											<rich:dataTable 
+												onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+												onRowMouseOut="this.style.backgroundColor='#FFFFFF'"
+											    cellpadding="0" cellspacing="0" 
+											    width="425px;" border="0" var="record" value="#">
+												<f:facet name="header">
+												    <rich:columnGroup>		                	
+												    	<rich:column width="425" colspan="3">
+												    		<div>
+												        		<h:outputText value="Filtrar Por..." />
+												        	</div>
+												        </rich:column>
+													</rich:columnGroup>
+												</f:facet>
+												<rich:columnGroup>
+													<rich:column width="25">
+														<div>
+												    		<h:selectBooleanCheckbox 
+												    			value="#{ordenContratoBean.filtroTipoOrdenSeleccionado}" />
+												    	</div>
+												    </rich:column>
+												    <rich:column width="100">
+												    	<div align="left">
+												    		<h:outputText value="Tipo de Documento"/>
+												    	</div>
+													</rich:column>
+												    <rich:column width="300">
+												        <div align="center">
+												        	<rich:comboBox width="250" 
+												        		value="#{ordenContratoBean.comboBoxItemTipoOrden}" 
+												        		defaultLabel="Seleccione un Tipo de Orden" 
+												        		listStyle="text-align: left;">
+																<f:selectItems value="#{ordenContratoBean.listaTiposOrden}"/>
+															</rich:comboBox>
+														</div>
+												    </rich:column>
+												</rich:columnGroup>
+												<rich:columnGroup>
+													<rich:column>
+														<div>
+													    	<h:selectBooleanCheckbox 
+													    	value="#{ordenContratoBean.filtroDescripcionRequerimientoSeleccionado}"	/>
+													    </div>
+													</rich:column>
+													<rich:column>
+														<div align="left">
+															<h:outputText value="Descripci&#243;n del Requerimiento" />
+														</div>
+													</rich:column>
+													<rich:column>
+													    <div align="center">
+													    	<h:inputText size="45" 
+													    		value="#{ordenContratoBean.descripcionRequerimiento}" />
+													    </div>
+													</rich:column>
+												</rich:columnGroup>
+												<rich:columnGroup>
+													<rich:column>
+														<div>
+													    	<h:selectBooleanCheckbox 
+													    		value="#{ordenContratoBean.filtroAnioSeleccionado}" />
+													    </div>
+													</rich:column>
+													<rich:column>
+														<div align="left">
+															<h:outputText value="A&#241;o del Documento" />
+														</div>
+													</rich:column>
+													<rich:column>
+													    <div align="center">
+													    	<h:inputText size="45" value="#{ordenContratoBean.anio}" />
+													    </div>
+													</rich:column>
+												</rich:columnGroup>
+												<rich:columnGroup>
+													<rich:column>
+														<div>
+													    	<h:selectBooleanCheckbox 
+													    		value="#{ordenContratoBean.filtroNumeroSeleccionado}"/>
+													    </div>
+													</rich:column>
+													<rich:column>
+														<div align="left">
+															<h:outputText value="N&#250;mero de Documento" />
+														</div>
+													</rich:column>
+													<rich:column>
+													    <div align="center">
+													    	<h:inputText size="45" value="#{ordenContratoBean.numero}" />
+													    </div>
+													</rich:column>
+												</rich:columnGroup>
+												<rich:columnGroup>
+													<rich:column>
+														<div>
+													    	<h:selectBooleanCheckbox 
+													    		value="#{ordenContratoBean.filtroRUCSeleccionado}" />
+													    </div>
+													</rich:column>
+													<rich:column>
+														<div align="left">
+															<h:outputText value="Ruc del Proveedor" />
+														</div>
+													</rich:column>
+													<rich:column>
+													    <div align="center">
+													    	<h:inputText size="45" value="#{ordenContratoBean.nroRuc}" />
+													    </div>
+													</rich:column>
+												</rich:columnGroup>
+												<rich:columnGroup>
+													<rich:column>
+														<div>
+													    	<h:selectBooleanCheckbox 
+													    	value="#{ordenContratoBean.filtroRazonSocialSeleccionado}" />
+													    </div>
+													</rich:column>
+													<rich:column>
+														<div align="left">
+															<h:outputText value="Raz&#243;n Social del Proveedor" />
+														</div>
+													</rich:column>
+													<rich:column>
+													    <div align="center">
+													    	<h:inputText size="45" 
+													    		value="#{ordenContratoBean.razonSocial}" />
+													    </div>
+													</rich:column>
+												</rich:columnGroup>
+												<rich:columnGroup>
+													<rich:column>
+														<div>
+													    	<h:selectBooleanCheckbox 
+													    	value="#{ordenContratoBean.filtroFechaEmisionSeleccionado}" />
+													    </div>
+													</rich:column>
+													<rich:column>
+														<div align="left">
+															<h:outputText value="Fecha de Emisi&#243;n" />
+														</div>
+													</rich:column>
+													<rich:column>
+													    <div align="center">
+													    	<rich:calendar datePattern="dd/MM/yyyy" 
+													    	value="#{ordenContratoBean.fechaEmision}"/>
+													    </div>
+													</rich:column>
+												</rich:columnGroup>
+											</rich:dataTable>
+											<rich:spacer height="10"/>
+											<div>
+												<h:panelGrid columns="2">
+													<p:commandButton value="Aplicar Filtro" 
+														action="#{ordenContratoController.filtrarOrdenContratoParaPenalidad}"
+														id="filtrarOrdenContratoParaPenalidad" 
+														update="simpleTogglePanelDatosOrdenContrato,formModalPanel:growl"/>
+													<p:commandButton value="Cancelar" action="#{opcionGeneralController.doCancel}" 
+														id="cancelarFiltrarOrdenContratoParaPenalidad" type="submit" ajax="false"/>
+												</h:panelGrid>
+											</div>
+											
+											<rich:datascroller for="dataTableOrdenesContratos" id="datascrollerOrdenesContratos" />
+											<rich:dataTable id="dataTableOrdenesContratos" 
+												onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+											    onRowMouseOut="this.style.backgroundColor='#FFFFFF'"
+											    cellpadding="0" cellspacing="0" rows="5" 
+											    width="675px;" border="0" var="record" binding="#{dataTableBean.htmlDataTable1}"
+											    value="#{ordenContratoBean.listaOrdenesContratos}">
+											    <f:facet name="header">
+												    <rich:columnGroup>
+												    	<rich:column colspan="2">
+													    	<div align="center">
+													    		<h:outputText value="N&#250;mero"/>
+													    	</div>
+													    </rich:column>
+													    <rich:column>
+													    	<div align="center">
+													    		<h:outputText value="Serie"/>
+													    	</div>
+													    </rich:column>
+													    <rich:column>
+													    	<div align="center">
+													    		<h:outputText value="A&#241;o"/>
+													    	</div>
+													    </rich:column>							
+													    <rich:column>
+															<div align="center">
+																<h:outputText value="Tipo de Documento" />
+															</div>
+														</rich:column>
+														<rich:column>
+															<div align="center">
+																<h:outputText value="Origen" />
+															</div>
+														</rich:column>
+													    <rich:column>
+													    	<div align="center">
+													    		<h:outputText value="Descripci&#243;n"/>
+													    	</div>
+													    </rich:column>											    
+													    <rich:column>
+													    	<div align="center">
+													    		<h:outputText value="RUC"/>
+													    	</div>
+													    </rich:column>
+														<rich:column>
+														   	<div align="center">
+														   		<h:outputText value="Raz&#243;n Social"/>
+														   	</div>
+														</rich:column>
+														<rich:column>
+														   	<div align="center">
+														   		<h:outputText value="Total"/>
+														   	</div>
+														</rich:column>
+														<rich:column>
+														   	<div align="center">
+														   		<h:outputText value="Moneda"/>
+														   	</div>
+														</rich:column>
+													</rich:columnGroup>
+												</f:facet>
+												<rich:columnGroup>
+													<rich:column width="25">
+												    	<a4j:commandLink id="commandLinkCargarEstaOrden" 
+												        	reRender="simpleTogglePanelDatosOrdenContrato,
+												        			simpleTogglePanelArticulosDeOrdenContrato,
+												        			outputPanelBotones"
+												        	action="#{ordenContratoController.cargarOrdenSeleccionada}">
+												        	<h:graphicImage value="/images/edit.gif" style="border:0"/>
+												        	<f:setPropertyActionListener value="#{record}"
+																target="#{ordenContratoBean.ordenContrato}" />
+															<f:setPropertyActionListener value="#{false}"
+																target="#{ordenContratoBean.seleccion}"/>
+														</a4j:commandLink>
+												        <rich:toolTip for="commandLinkCargarEstaOrden" value="Cargar Orden/Contrato"/>
+												    </rich:column>
+												    <rich:column width="25">
+														<div align="right">
+															<h:outputText value="#{record.numero}" />
+														</div>
+													</rich:column>
+													<rich:column width="25">
+														<div align="right">
+															<h:outputText value="#{record.serie}"/>
+														</div>
+													</rich:column>
+													<rich:column width="25">
+												    	<div align="right">
+												    		<h:outputText value="#{record.year}" />
+												    	</div>
+												    </rich:column>
+												    <rich:column width="50">
+												    	<div align="left">
+												    		<h:outputText value="#{record.tipoOrden.descripcion}"/>
+												    	</div>
+												    </rich:column>
+												    <rich:column width="75">
+												    	<div align="left">
+												    		<h:outputText value="#{record.origen.descripcion}"/>
+												    	</div>
+												    </rich:column>
+												    <rich:column width="150">
+												    	<div align="left">
+												    		<h:outputText value="#{record.descripcionRequerimiento}"/>
+												    	</div>
+												    </rich:column>
+												    <rich:column width="50">
+												    	<div align="left">
+												    		<h:outputText value="#{record.proveedor.nroRuc}"/>
+												    	</div>
+												    </rich:column>
+												    <rich:column width="150">
+												    	<div align="left">
+												    		<h:outputText value="#{record.proveedor.razonSocial}"/>
+												    	</div>
+												    </rich:column>
+												     <rich:column width="50">
+												    	<div align="left">
+												    		<h:outputText value="#{record.total}"/>
+												    	</div>
+												    </rich:column>
+												    <rich:column width="50">
+												    	<div align="left">
+												    		<h:outputText value="#{record.moneda.descripcion}"/>
+												    	</div>
+												    </rich:column>
+												</rich:columnGroup>
+											</rich:dataTable>
+										</div>
+									</rich:simpleTogglePanel>
+									<h:panelGrid columns="10" cellspacing="5">
+										<h:outputText value="N&#250;mero" />												
+										<h:inputText value="#{ordenContratoBean.numeroOrdenContrato}" 
+													readonly="true" size="4"/>
+										<h:outputText value="A&#241;o" />												
+										<h:inputText value="#{ordenContratoBean.yearOrdenContrato}" 
+													readonly="true" size="4"/>												
+										<h:outputText value="Serie"/>
+										<h:inputText value="#{ordenContratoBean.serieOrdenContrato}"
+													readonly="true" size="4"/>
+										<h:outputText value="Tipo de Documento" />
+										<h:inputText readonly="true" size="20" rendered="#{ordenContratoBean.tipoOrden == null}"
+											value=""/>
+										<h:inputText readonly="true" size="20" rendered="#{ordenContratoBean.tipoOrden != null}"
+											value="#{ordenContratoBean.tipoOrden.descripcion}"/>
+										<h:outputText value="Referencia" />
+										<h:inputText  readonly="true" size="25"
+											value="#{ordenContratoBean.detalle}"/>
+										<!-- 
+										<h:outputText value="Origen" />
+										<h:inputText  readonly="true" size="25"
+											value="${ empty ordenContratoBean.origenOrdenContrato?
+											'':ordenContratoBean.origenOrdenContrato.descripcion}"/>
+											 -->
+									</h:panelGrid>
+									<h:panelGrid columns="6">
+										<h:outputText value="Descripci&#243;n"/>
+										<h:inputText value="#{ordenContratoBean.descripcionOrdenContrato}" readonly="true" size="75"/>
+										<h:selectBooleanCheckbox value="#{ordenContratoBean.afectoIGV}" disabled="true"/>
+										<h:outputText value="Afecto al IGV" />
+										<h:selectBooleanCheckbox value="#{ordenContratoBean.afectoImpuestoRenta}" disabled="true"/>
+										<h:outputText value="Afecto al Impuesto a la Renta" />								
+									</h:panelGrid>
+									<h:panelGrid columns="6" cellspacing="5">
+										<h:outputText value="RUC"/>
+										<h:inputText value="" rendered="#{ordenContratoBean.proveedor ==null }" 
+												readonly="true" size="15"/>
+										<h:inputText value="#{ordenContratoBean.proveedor.nroRuc}" 
+												rendered="#{ordenContratoBean.proveedor !=null }" readonly="true" size="15"/>
+										<h:outputText value="Raz&#243;n Social"/>
+										<h:inputText value="" rendered="#{ordenContratoBean.proveedor ==null }"
+												readonly="true" size="65"/>
+										<h:inputText value="#{ordenContratoBean.proveedor.razonSocial}" 
+												rendered="#{ordenContratoBean.proveedor !=null }" readonly="true" size="65"/>
+										<h:outputText value="Fecha Emisi&#243;n"/>
+										<h:inputText value="" readonly="true" size="10" rendered="#{ordenContratoBean.fechaIngreso == null}"/>
+										<h:inputText value="#{ ordenContratoBean.strFechaIngreso }" 
+												readonly="true" size="10" rendered="#{ordenContratoBean.fechaIngreso != null}"/>
+									</h:panelGrid>
+									<h:panelGrid columns="4" cellspacing="10">
+										<h:outputText value="Motivo"/>
+										<h:inputText value="#{ordenContratoBean.motivoEstado}" size="85"/>
+									</h:panelGrid>
+								</h:panelGrid>
+							</div>
+						</rich:simpleTogglePanel>
+						
+						<rich:simpleTogglePanel switchType="client" id="simpleTogglePanelArticulosDeOrdenContrato">					
+							<f:facet name="header">
+								<h:outputText value="Art&#237;culos de esa Orden/Contrato" />
+							</f:facet>
+							<div align="center">
+								<rich:datascroller align="center" for="dataTableArticulosDeOrdenContrato" 
+										page="1" renderIfSinglePage="false"/>
+								<rich:dataTable id="dataTableArticulosDeOrdenContrato"
+									onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+									onRowMouseOut="this.style.backgroundColor='#FFFFFF'"
+									cellpadding="0" cellspacing="0" rows="5" binding="#{dataTableBean.htmlDataTable2}"
+									width="750px;" border="0" var="record" 
+									value="#{ordenContratoBean.listaArticulosOrden}">
+									<f:facet name="header">
+										<rich:columnGroup>
+											<rich:column width="450">
+												<h:outputText value="Descripci&#243;n del Art&#237;culo" />
+											</rich:column>								
+											<rich:column width="50">
+												<h:outputText value="D&#237;as de Plazo" />
+											</rich:column>
+											<rich:column width="100">
+												<h:outputText value="Unidad de Medida" />
+											</rich:column>
+											<rich:column width="50">
+												<h:outputText value="Cantidad" />
+											</rich:column>
+											<rich:column width="50">
+												<h:outputText value="Precio Unitario" />
+											</rich:column>
+											<rich:column width="50">
+												<h:outputText value="SubTotal" />
+											</rich:column>
+										</rich:columnGroup>
+									</f:facet>
+									<rich:columnGroup>
+										<rich:column>
+											<div align="left">
+												<h:outputText value="#{record.descripcion}" />
+											</div>
+										</rich:column>
+										<rich:column id="plazo">
+											<div align="left">
+												<h:outputText value="#{record.plazo}" />									
+											</div>
+										</rich:column>
+										<rich:column>
+											<div align="center">
+												<h:outputText value="#{record.unidadMedida.descripcion}" />
+											</div>
+										</rich:column>
+										<rich:column>
+											<div align="right">
+												<h:outputText value="#{record.cantidad}">
+													<f:convertNumber  maxFractionDigits="2"  minFractionDigits="2" locale="en"/>
+												</h:outputText>
+											</div>
+										</rich:column>
+										<rich:column>
+											<div align="right">
+												<h:outputText value="#{record.precio}">
+													<f:convertNumber  maxFractionDigits="2"  minFractionDigits="2" locale="en"/>
+												</h:outputText>
+											</div>
+										</rich:column>
+										<rich:column>
+											<div align="right">
+												<h:outputText value="#{record.cantidad*record.precio}">
+													<f:convertNumber  maxFractionDigits="2"  minFractionDigits="2" locale="en"/>
+												</h:outputText>
+											</div>
+										</rich:column>                    
+										<rich:subTable value="#" >
+											<rich:column colspan="7">
+												<div align="center">
+													<h:outputText value="Especificaciones:" />
+													<h:inputTextarea value="#{record.especificaciones}" readonly="true" 
+														cols="135" rows="5"/>
+													<h:panelGrid columns="1">
+														<h:panelGroup>
+															<h:selectBooleanCheckbox value="#{record.aplicaMatenimiento}">
+																<a4j:support reRender="outputPanelMantenimientos" 
+																	event="onchange"/>
+															</h:selectBooleanCheckbox>
+															<h:outputText value="Aplica Mantenimientos"/>
+														</h:panelGroup>
+														<a4j:outputPanel id="outputPanelMantenimientos">
+															<h:panelGrid columns="1" rendered="#{record.aplicaMatenimiento}">
+																<rich:dataTable id="dataTableMantenimientosArticulos"
+																	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+																	onRowMouseOut="this.style.backgroundColor='#FFFFFF'"
+																	cellpadding="0" cellspacing="0"
+																	width="200px;" border="0" var="record3" 
+																	value="#{record.mantenimientos}">
+																	<f:facet name="header">
+																		<rich:columnGroup>																			
+																			<rich:column width="200">
+																				<h:outputText value="Fecha del Mantenimiento" />
+																			</rich:column>
+																		</rich:columnGroup>
+																	</f:facet>
+																	<rich:columnGroup>
+																		<rich:column>
+																			<div align="center">
+																				<rich:calendar datePattern="dd/MM/yyyy"
+											    									value="#{record3.fecha.time}"/>
+																			</div>
+																		</rich:column>
+																	</rich:columnGroup>
+																</rich:dataTable>
+															</h:panelGrid>
+														</a4j:outputPanel>
+													</h:panelGrid>
+													<!-- 
+													<h:panelGrid columns="2">
+														<h:selectBooleanCheckbox value="#{record.aplicaGarantia}" disabled="true"/>
+														<h:outputText value="Aplica Garant&#237;a Post-Venta"/>
+													</h:panelGrid>
+													<a4j:outputPanel id="outputPanelGarantia">
+														<h:panelGroup rendered="#{record.aplicaGarantia}">	
+															<div align="center">
+																<h:panelGrid columns="4">
+																	<h:outputText value="Inicio Garant&#237;a Post-Venta"/>
+																	<rich:calendar datePattern="dd/MM/yyyy" 
+																		value="#{record.fechaInicioGarantia.time}" disabled="true"/>
+																	<h:outputText value="Fin Garant&#237;a Post-Venta"/>
+																	<rich:calendar datePattern="dd/MM/yyyy" value="#{record.fechaFinalGarantia.time}" 
+																		disabled="true"/>
+																</h:panelGrid>
+																<h:panelGrid columns="1">
+																	<h:outputText value="Aplicaci&#243;n"/>
+																</h:panelGrid>
+																<h:inputTextarea value="#{record.detalleGarantia}" readonly="true" 
+																		cols="125" rows="5"/>
+															</div>
+														</h:panelGroup>
+													</a4j:outputPanel>
+													 -->
+												</div>
+											</rich:column>
+										</rich:subTable>
+									</rich:columnGroup>
+									<f:facet name="footer">
+							        	<rich:columnGroup>
+							            	<rich:column colspan="4">
+							                	<rich:spacer/>
+						                    </rich:column>
+						                    <rich:column>
+							                	<div align="right">
+								                   	<h:outputText value="Total" />
+							                   	</div>
+						                    </rich:column>
+						                    <rich:column id="total">
+						                        <div align="right">
+						                            <h:outputText value="#{ordenContratoBean.totalListaArticulosOrden}">
+						                            	<f:convertNumber  maxFractionDigits="2"  minFractionDigits="2" locale="en"/>
+						                        	</h:outputText>
+						                        </div>
+						                	</rich:column>
+										</rich:columnGroup>
+							      	</f:facet>			    
+								</rich:dataTable>
+							</div>
+						</rich:simpleTogglePanel>
+						<a4j:outputPanel id="outputPanelBotones">
+							<h:panelGrid columns="2" id="panelGridBotones">
+								<p:commandButton value="Anular Orden/Contrato" 
+									action="#{ordenContratoController.anularOrdenContrato}" id="anularOrdenContrato"
+									oncomplete="if(args.showDialog){#{rich:component('modalPanelResultadoOperacion')}.show();}" 
+									update="formModalPanel:modalPanelResultadoOperacion,formModalPanel:growl" />
+								<p:commandButton value="Cancelar" action="#{opcionGeneralController.doCancel}" 
+									id="cancelarOperacionResolver" type="submit" ajax="false"/>
+							</h:panelGrid>
+						</a4j:outputPanel>						
+					</div>
+				</rich:panel>
+			</h:form>
+		</ui:define>
+		
+		<ui:define name="CabeceraModalPanelResultado">
+			<h:outputText value="Resultado de la Operaci&#243;n" />
+		</ui:define>		
+		
+		<ui:define name="CuerpoModalPanelResultado">
+			<div id="divResultadoOperacion">
+				<rich:panel id="panelOperacionNoOk" rendered="#{mensajeBean.visible}">
+					<h:outputText value="#{mensajeBean.mensajeError}" styleClass="rich-message-label" />
+					<div align="center">					
+						<a4j:commandButton value="Aceptar" 
+							oncomplete="#{rich:component('modalPanelResultadoOperacion')}.hide()"/>
+					</div>
+				</rich:panel>
+				<rich:panel id="panelOperacionOk" rendered="#{!mensajeBean.visible}">
+					<h:outputText value="La operaci&#243;n ha sido realizada exitosamente" 
+						styleClass="rich-message-label-ok" />
+					<div align="center">
+						<h:panelGrid columns="2">
+							<a4j:commandButton value="Ir a la P&#225;gina Principal"
+								action="#{opcionGeneralController.doCancel}" type="submit"
+								onclick="#{rich:component('modalPanelResultadoOperacion')}.hide()"/>
+							<a4j:commandButton value="Anular otra Orden/Contrato" type="submit"
+								action="#{opcionGeneralController.callPagina}"
+								oncomplete="#{rich:component('modalPanelResultadoOperacion')}.hide()"
+								reRender="richpanelprincipal">
+								<a4j:actionparam value="anulordc" assignTo="#{usuarioBean.paginaActual}" />
+							</a4j:commandButton>
+						</h:panelGrid>
+					</div>
+				</rich:panel>
+			</div>
+		</ui:define>
+	</ui:composition>
+</html>
